@@ -30,7 +30,11 @@ try{
 
      //all post data get 
      app.get('/tasks' , async(req,res)=>{
-        const cursor = todoDatabaseCollection.find({});
+       const query ={}
+       if(req.query.priority){
+        query.priority = req.query.priority
+       }
+        const cursor = todoDatabaseCollection.find(query);
         const tasks = await cursor.toArray();
         res.send({status:true, data:tasks})
      })
